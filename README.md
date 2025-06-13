@@ -21,4 +21,8 @@ INSTRUCTION:
 - dont forget using required parameter (parameter_name).
 - make sure the required parameter format is looks like this, example: {"query":"text"}
 ```
-![image](https://github.com/user-attachments/assets/f9386b04-567d-49c9-b3b1-e64803e80e35)
+
+---
+
+### Demo
+[![Demo](https://github.com/user-attachments/assets/f9386b04-567d-49c9-b3b1-e64803e80e35)]([https://www.youtube.com/embed/APOPm01BVrk](https://drive.google.com/file/d/13KU5IfNckyWEaXyYOx6t9OEymn2JT97b/view?usp=sharing))
