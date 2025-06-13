@@ -1,0 +1,150 @@
+{
+  "name": "AI-Scraper",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "97be1328-b169-4ce9-b075-6d7b120a92cf",
+      "name": "When chat message received",
+      "webhookId": "c5fa1de9-007b-414c-a786-ae1bc0c787cf"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant. \n\n- Utilize firecrawl to srape websites.\n\nStart by listing available tools (listTools), then execute the approriate tool (toolname) and dont forget using required parameter (parameter_name). make sure the required parameter format is looks like this, example: {\"query\":\"text\"}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        180,
+        0
+      ],
+      "id": "5f0608a4-be25-4254-a5bf-7ea4b69ea46b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        140,
+        220
+      ],
+      "id": "ea30f72f-2c83-4a0c-9ee7-8619d6352d8e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "paPFK6qFYkhA06mU",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "={{ $fromAI(\"toolname\",\"tool that approriate depend on user reqirement.\",\"string\") }}",
+        "toolParameters": "={{ $fromAI(\"parameter_name\",\"required parameter for using tool.\",\"string\") }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        300,
+        220
+      ],
+      "id": "c9694054-7594-410b-9b13-a77863c65cbb",
+      "name": "MCP Client",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "Uv3u1eI3weZAqXWT",
+          "name": "Firecrawl"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        420,
+        220
+      ],
+      "id": "ae4ec258-a481-4c92-881c-520c2e4719fe",
+      "name": "List Services",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "Uv3u1eI3weZAqXWT",
+          "name": "Firecrawl"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Services": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a9df343c-bfbc-47df-80a1-be1f5de769c0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "31ed474ce7b3889d2141757c8d9ec23829c2408e70d4f3f53f4e4b40eabb4516"
+  },
+  "id": "fJGvHXUvBwPEFf0h",
+  "tags": []
+}
