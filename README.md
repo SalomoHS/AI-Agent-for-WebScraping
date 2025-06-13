@@ -25,4 +25,4 @@ INSTRUCTION:
 ---
 
 ### Demo
-[![Demo](https://github.com/user-attachments/assets/f9386b04-567d-49c9-b3b1-e64803e80e35)](https://drive.google.com/file/d/13KU5IfNckyWEaXyYOx6t9OEymn2JT97b/view?usp=sharing)
+[![Demo](https://drive.google.com/file/d/13KU5IfNckyWEaXyYOx6t9OEymn2JT97b/view?usp=sharing)]
